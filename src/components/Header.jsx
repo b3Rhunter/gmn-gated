@@ -5,6 +5,6 @@ import Banner from "../imgs/banner.png";
 
 export default function Header() {
   return (
-      <img src={Banner} style={{ width: "100%", marginTop: 50, position: "cover" }} alt="banner"></img>
+      <img src={Banner} style={{ width: "100%", margin: 0, padding: 0 }} alt="banner"></img>
   );
 }
