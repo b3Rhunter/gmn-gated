@@ -56,14 +56,14 @@ function Home({ userSigner, web3Modal, provider, injectedProvider }) {
       const isValid = await validateUser(message, address, signature);
 
       if (!isValid) {
-        throw new Error("You are not part of this viewing club");
+        throw new Error("🚫 You are not a GMN holder 🚫");
       }
 
       setIsAuth(isValid);
 
       // notify user of sign-in
       sendNotification("success", {
-        message: "Signed in successfully",
+        message: "🗞️ Verified GMN Holder 🗞️",
       });
     } catch (error) {
       sendNotification("error", {
