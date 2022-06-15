@@ -85,7 +85,7 @@ function Home({ userSigner, web3Modal, provider, injectedProvider }) {
           <iframe
             style={{ width: "66%", height: 500, borderRadius: "2%" }}
             title="GMN"
-            src="https://gateway.pinata.cloud/ipfs/QmXvHdxqPesUVVvXCDAWfTQvFEbcbtjLjkFjBFhwBp9ubD/index.html"
+            src="https://interactive-umber.vercel.app/"
           ></iframe>
         </div>
       )}
