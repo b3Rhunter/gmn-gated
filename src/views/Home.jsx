@@ -68,7 +68,7 @@ function Home({ userSigner, web3Modal, provider, injectedProvider }) {
     } catch (error) {
       sendNotification("error", {
         message: "Failed to Sign!",
-        description: `Connection issue - ${error.message}`,
+        description: `${error.message}`,
       });
     }
 
