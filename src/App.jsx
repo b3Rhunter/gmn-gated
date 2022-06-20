@@ -18,7 +18,10 @@ import {
 } from "eth-hooks";
 // import Hints from "./Hints";
 import { Home } from "./views";
-
+import { Minter } from "./views";
+import { Weekly } from "./views";
+import { Newsies } from "./views";
+import { How } from "./views"
 import { useContractConfig } from "./hooks";
 import Portis from "@portis/web3";
 import Fortmatic from "fortmatic";
@@ -78,7 +81,7 @@ const walletLinkProvider = walletLink.makeWeb3Provider(`https://mainnet.infura.i
 const web3Modal = new Web3Modal({
   network: "mainnet", // Optional. If using WalletConnect on xDai, change network to "xdai" and add RPC info below for xDai chain.
   cacheProvider: true, // optional
-  theme: "light", // optional. Change to "dark" for a dark theme.
+  theme: "dark", // optional. Change to "dark" for a dark theme.
   providerOptions: {
     walletconnect: {
       package: WalletConnectProvider, // required
@@ -109,19 +112,6 @@ const web3Modal = new Web3Modal({
         key: "pk_live_5A7C91B2FC585A17", // required
       },
     },
-    // torus: {
-    //   package: Torus,
-    //   options: {
-    //     networkParams: {
-    //       host: "https://localhost:8545", // optional
-    //       chainId: 1337, // optional
-    //       networkId: 1337 // optional
-    //     },
-    //     config: {
-    //       buildEnv: "development" // optional
-    //     },
-    //   },
-    // },
     "custom-walletlink": {
       display: {
         logo: "https://play-lh.googleusercontent.com/PjoJoG27miSglVBXoXrxBSLveV6e3EeBPpNY55aiUUBM9Q1RCETKCOqdOkX2ZydqVf0",
@@ -139,6 +129,8 @@ const web3Modal = new Web3Modal({
     },
   },
 });
+
+
 
 function App(props) {
   const mainnetProvider =
@@ -334,7 +326,7 @@ function App(props) {
   } else {
     networkDisplay = (
       <div style={{ zIndex: -1, position: "absolute", right: 154, top: 28, padding: 16, color: targetNetwork.color }}>
-        {targetNetwork.name}
+        
       </div>
     );
   }
@@ -375,20 +367,179 @@ function App(props) {
 
   return (
     <div className="App">
-      {/* ✏️ Edit the header and change the title to your project name */}
       <Header style={{
         margin: 0,
         padding: 0
       }} />
+     
       <BrowserRouter>
+      <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
+          <Menu.Item key="/">
+            <Link
+              onClick={() => {
+                setRoute("/");
+              }}
+              to="/"
+            >
+              Home
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/How">
+            <Link
+              onClick={() => {
+                setRoute("/How");
+              }}
+              to="/How"
+            >
+              How it Works
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/Minter">
+            <Link
+              onClick={() => {
+                try {
+                  window.ethereum.request({
+                   method: 'wallet_switchEthereumChain',
+                   params: [{ chainId: "0x" + targetNetwork.chainId.toString(16) }],
+                 });
+               } catch (switchError) {
+                 // This error code indicates that the chain has not been added to MetaMask.
+                 if (switchError.code === 4902) {
+                   try {
+                      window.ethereum.request({
+                       method: 'wallet_addEthereumChain',
+                       params: [
+                         {
+                           chainId: "0x" + targetNetwork.chainId.toString(16),
+                           chainName: 'matic',
+                           rpcUrls: ['https://rpc-mainnet.maticvigil.com'] /* ... */,
+                         },
+                       ],
+                     });
+                   } catch (addError) {
+                     // handle "add" error
+                   }
+                 }
+                 // handle other "switch" errors
+               }
+                setRoute("/Minter");
+              }}
+              to="/Minter"
+            >
+              GMN DAILY
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/Weekly">
+            <Link
+              onClick={() => {
+
+                try {
+                   window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0x1' }],
+                  });
+                } catch (switchError) {
+                  // This error code indicates that the chain has not been added to MetaMask.
+                  if (switchError.code === 4902) {
+                    try {
+                       window.ethereum.request({
+                        method: 'wallet_addEthereumChain',
+                        params: [
+                          {
+                            chainId: '0x1',
+                            chainName: 'mainnet',
+                            rpcUrls: ['https://mainnet.infura.io/v3/${INFURA_ID}'] /* ... */,
+                          },
+                        ],
+                      });
+                    } catch (addError) {
+                      <Alert>{networkDisplay}</Alert>
+                    }
+                  }
+                  // handle other "switch" errors
+                }
+
+
+  
+                setRoute("/Weekly");
+              }}
+              to="/Weekly"
+            >
+              WEEKLY WEI
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/Newsies">
+            <Link
+              onClick={() => {
+
+                try {
+                  window.ethereum.request({
+                   method: 'wallet_switchEthereumChain',
+                   params: [{ chainId: '0x1' }],
+                 });
+               } catch (switchError) {
+                 // This error code indicates that the chain has not been added to MetaMask.
+                 if (switchError.code === 4902) {
+                   try {
+                      window.ethereum.request({
+                       method: 'wallet_addEthereumChain',
+                       params: [
+                         {
+                           chainId: '0x1',
+                           chainName: 'mainnet',
+                           rpcUrls: ['https://mainnet.infura.io/v3/${INFURA_ID}'] /* ... */,
+                         },
+                       ],
+                     });
+                   } catch (addError) {
+                     // handle "add" error
+                   }
+                 }
+                 // handle other "switch" errors
+               }
+                setRoute("/Newsies");
+              }}
+              to="/Newsies"
+            >
+              GET NEWSIE
+            </Link>
+          </Menu.Item>
+        </Menu>
         <Switch>
-          <Route exact path="/">
-            {/*
-                🎛 this scaffolding is full of commonly used components
-                this <Contract/> component will automatically parse your ABI
-                and give you a form to interact with it locally
-            */}
+        <Route exact path="/">
             <Home
+              userSigner={userSigner}
+              web3Modal={web3Modal}
+              provider={localProvider}
+              injectedProvider={injectedProvider}
+            />
+          </Route>
+          <Route exact path="/How">
+            <How
+              userSigner={userSigner}
+              web3Modal={web3Modal}
+              provider={localProvider}
+              injectedProvider={injectedProvider}
+            />
+          </Route>
+          <Route exact path="/Minter">
+            <Minter
+              userSigner={userSigner}
+              web3Modal={web3Modal}
+              provider={localProvider}
+              injectedProvider={injectedProvider}
+            />
+          </Route>
+          <Route exact path="/Weekly">
+            <Weekly
+              userSigner={userSigner}
+              web3Modal={web3Modal}
+              provider={localProvider}
+              injectedProvider={injectedProvider}
+            />
+          </Route>
+          <Route exact path="/Newsies">
+            <Newsies
               userSigner={userSigner}
               web3Modal={web3Modal}
               provider={localProvider}
@@ -400,8 +551,8 @@ function App(props) {
 
       <ThemeSwitch />
 
-      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      <div style={{ position: "relative", textAlign: "center", right: 0, left: 0, top: 15, }}>
+      {/* 👨‍💼 Your account */}
+      <div >
         <Account
           address={address}
           localProvider={localProvider}
