@@ -21,7 +21,6 @@ import { Home } from "./views";
 import { Minter } from "./views";
 import { Weekly } from "./views";
 import { Newsies } from "./views";
-import { How } from "./views"
 import { useContractConfig } from "./hooks";
 import Portis from "@portis/web3";
 import Fortmatic from "fortmatic";
@@ -350,7 +349,7 @@ function App(props) {
       console.log(code, reason);
       logoutOfWeb3Modal();
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [setInjectedProvider]);
 
   useEffect(() => {
@@ -371,10 +370,22 @@ function App(props) {
         margin: 0,
         padding: 0
       }} />
-     
-      <BrowserRouter>
-      <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
-          <Menu.Item key="/" style={{ padding: 10 }}>
+           {/* 👨‍💼 Your account */}
+      <div style={{position: "absolute", top: 20, left: "33%", right: "33%"}}>
+        <Account
+          address={address}
+          localProvider={localProvider}
+          userSigner={userSigner}
+          mainnetProvider={mainnetProvider}
+          web3Modal={web3Modal}
+          loadWeb3Modal={loadWeb3Modal}
+          logoutOfWeb3Modal={logoutOfWeb3Modal}
+          blockExplorer={blockExplorer}
+        />
+      </div>
+      <BrowserRouter style={{width: "100%"}}>
+      <Menu style={{ textAlign: "center", width: "100%" }} selectedKeys={[route]} mode="horizontal">
+          <Menu.Item key="/" style={{ padding: 20 }}>
             <Link
               onClick={() => {
                 setRoute("/");
@@ -384,17 +395,7 @@ function App(props) {
               Home
             </Link>
           </Menu.Item>
-          <Menu.Item key="/How" style={{ padding: 10 }}>
-            <Link
-              onClick={() => {
-                setRoute("/How");
-              }}
-              to="/How"
-            >
-              How it Works
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/Minter" style={{ padding: 10 }}>
+          <Menu.Item key="/Minter" style={{ padding: 20 }}>
             <Link
               onClick={() => {
                 try {
@@ -429,7 +430,7 @@ function App(props) {
               GMN DAILY
             </Link>
           </Menu.Item>
-          <Menu.Item key="/Weekly" style={{ padding: 10 }}>
+          <Menu.Item key="/Weekly" style={{ padding: 20 }}>
             <Link
               onClick={() => {
 
@@ -468,7 +469,7 @@ function App(props) {
               WEEKLY WEI
             </Link>
           </Menu.Item>
-          <Menu.Item key="/Newsies" style={{ padding: 10 }}>
+          <Menu.Item key="/Newsies" style={{ padding: 20 }}>
             <Link
               onClick={() => {
 
@@ -514,14 +515,6 @@ function App(props) {
               injectedProvider={injectedProvider}
             />
           </Route>
-          <Route exact path="/How">
-            <How
-              userSigner={userSigner}
-              web3Modal={web3Modal}
-              provider={localProvider}
-              injectedProvider={injectedProvider}
-            />
-          </Route>
           <Route exact path="/Minter">
             <Minter
               userSigner={userSigner}
@@ -548,22 +541,7 @@ function App(props) {
           </Route>
         </Switch>
       </BrowserRouter>
-
       <ThemeSwitch />
-
-      {/* 👨‍💼 Your account */}
-      <div >
-        <Account
-          address={address}
-          localProvider={localProvider}
-          userSigner={userSigner}
-          mainnetProvider={mainnetProvider}
-          web3Modal={web3Modal}
-          loadWeb3Modal={loadWeb3Modal}
-          logoutOfWeb3Modal={logoutOfWeb3Modal}
-          blockExplorer={blockExplorer}
-        />
-      </div>
     </div>
   );
 }
