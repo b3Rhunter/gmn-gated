@@ -374,7 +374,7 @@ function App(props) {
      
       <BrowserRouter>
       <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
-          <Menu.Item key="/">
+          <Menu.Item key="/" style={{ padding: 10 }}>
             <Link
               onClick={() => {
                 setRoute("/");
@@ -384,7 +384,7 @@ function App(props) {
               Home
             </Link>
           </Menu.Item>
-          <Menu.Item key="/How">
+          <Menu.Item key="/How" style={{ padding: 10 }}>
             <Link
               onClick={() => {
                 setRoute("/How");
@@ -394,7 +394,7 @@ function App(props) {
               How it Works
             </Link>
           </Menu.Item>
-          <Menu.Item key="/Minter">
+          <Menu.Item key="/Minter" style={{ padding: 10 }}>
             <Link
               onClick={() => {
                 try {
@@ -429,7 +429,7 @@ function App(props) {
               GMN DAILY
             </Link>
           </Menu.Item>
-          <Menu.Item key="/Weekly">
+          <Menu.Item key="/Weekly" style={{ padding: 10 }}>
             <Link
               onClick={() => {
 
@@ -468,7 +468,7 @@ function App(props) {
               WEEKLY WEI
             </Link>
           </Menu.Item>
-          <Menu.Item key="/Newsies">
+          <Menu.Item key="/Newsies" style={{ padding: 10 }}>
             <Link
               onClick={() => {
 
