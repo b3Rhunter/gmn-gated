@@ -109,7 +109,7 @@ function Minter({
       Mint Daily
     </Button>
     <Button shape="round" size="large" loading={isSigning} style={{ marginTop: 32, marginLeft: 10, marginRight: 10  }} await onClick={handleSignIn}>
-      Veiw
+      View
     </Button>
 
   </div>
